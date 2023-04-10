@@ -1,6 +1,6 @@
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 class Consumatore extends Thread {
     private QuotazioniBorsa quotazioniBorsa;
@@ -11,13 +11,22 @@ class Consumatore extends Thread {
 
     @Override
     public void run() {
-        Set<String> aziendeRaccolte = new HashSet<>();
+
+        List<String> aziendeRaccolte = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.##");
+
         while (true) {
-            Map<String, Double> quotazioni = quotazioniBorsa.getQuotazioni();
-            aziendeRaccolte.addAll(quotazioni.keySet());
+
+            String azienda = quotazioniBorsa.getAzienda();
+            double valore = quotazioniBorsa.getValore();
+
+            if (!aziendeRaccolte.contains(azienda)) {
+                aziendeRaccolte.add(azienda);
+                System.out.println(getName() + " ha raccolto la quotazione di " + azienda + " con valore " + df.format(valore));
+            }
 
             if (aziendeRaccolte.size() >= 10) {
-                System.out.println(getName() + " ha raccolto le quotazioni di tutte le 10 aziende!");
+                System.out.println("\n--> " +getName() + " ha raccolto le quotazioni di tutte le 10 aziende! <--");
                 System.exit(0);
             }
 
@@ -26,6 +35,9 @@ class Consumatore extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
+
     }
+
 }

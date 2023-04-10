@@ -9,10 +9,12 @@ public class Produttore extends Thread {
 
     @Override
     public void run() {
+
         String[] aziende = {"Fiat", "Generali", "Eni", "Intesa", "Unicredit", "Luxottica", "Mediaset", "Ferrari", "Telecom", "Pirelli"};
         Random random = new Random();
 
         while (true) {
+
             int indiceAzienda = random.nextInt(aziende.length);
             double valore = 10 + random.nextDouble() * 100;
             quotazioniBorsa.aggiungiQuotazione(aziende[indiceAzienda], valore);
@@ -22,6 +24,9 @@ public class Produttore extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
+
     }
+
 }
