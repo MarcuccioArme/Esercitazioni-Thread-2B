@@ -6,12 +6,13 @@ public class QuotazioniBorsa {
 
         this.azienda = azienda;
         this.valore = valore;
-        notifyAll();
+        notifyAll();    //I thread consumatori vengono svegliati e possono leggere i nuovi valori delle variabili azienda e valore.
 
     }
 
     public synchronized String getAzienda() {
 
+        //Deve aspettare che il produttore abbia aggiornato le variabili azienda e valore prima di restituire i valori ai consumatori.
         while (azienda == null) {
 
             try {
@@ -30,6 +31,7 @@ public class QuotazioniBorsa {
 
     public synchronized double getValore() {
 
+        //Deve aspettare che il produttore abbia aggiornato le variabili azienda e valore prima di restituire i valori ai consumatori.
         while (azienda == null) {
 
             try {
@@ -46,3 +48,8 @@ public class QuotazioniBorsa {
 
     }
 }
+
+/*
+Senza l'utilizzo del wait() e del notify(), i thread consumatori potrebbero leggere i valori delle variabili azienda e valore prima che il thread
+produttore abbia finito di aggiornarle, causando situazioni d'inconsistenza dei dati.
+*/
