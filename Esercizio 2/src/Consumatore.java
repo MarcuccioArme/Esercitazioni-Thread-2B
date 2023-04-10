@@ -1,35 +1,41 @@
-import java.util.concurrent.BlockingQueue;
+import java.util.ArrayList;
 
 class Consumatore implements Runnable {
 
-    private final BlockingQueue<String> codaOrdinazioni;
+    private final ArrayList<String> ordinazioni;
 
-    public Consumatore(BlockingQueue<String> codaOrdinazioni) {
-        this.codaOrdinazioni = codaOrdinazioni;
+    public Consumatore(ArrayList<String> ordinazioni) {
+        this.ordinazioni = ordinazioni;
     }
 
     @Override
     public void run() {
-        try {
+        synchronized (ordinazioni) {
+            try {
 
-            while (true) {
-                // Recupera l'ordinazione successiva dalla coda
-                String ordine = codaOrdinazioni.take();
+                while (true) {
+                    // Attende finché ci sono ordinazioni nell'arraylist
+                    while (ordinazioni.isEmpty()) {
+                        ordinazioni.wait();
+                    }
+                    // Recupera l'ordinazione successiva dall'arraylist
+                    String ordine = ordinazioni.get(0);
+                    ordinazioni.remove(0);
 
-                // Se è stato inserito il valore speciale "FINE", termina il ciclo
-                if (ordine.equals("FINE")) {
-                    break;
+                    // Se è stato inserito un valore nullo, termina il ciclo
+                    if (ordine == null) {
+                        break;
+                    }
+
+                    // Elabora l'ordinazione
+                    System.out.println("\nPreparazione in corso: " + ordine);
+                    Thread.sleep(2000); // Simula il tempo di preparazione
+                    System.out.println("Ordinazione pronta: " + ordine);
                 }
 
-                // Elabora l'ordinazione
-                System.out.println("\nPreparazione in corso: " + ordine);
-                Thread.sleep(2000); // Simula il tempo di preparazione
-                System.out.println("Ordinazione pronta: " + ordine);
-
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
-
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
         }
     }
 }

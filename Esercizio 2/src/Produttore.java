@@ -1,38 +1,37 @@
-import java.util.concurrent.BlockingQueue;
+import java.util.ArrayList;
 
 class Produttore implements Runnable {
 
-    private final BlockingQueue<String> codaOrdinazioni;
+    private final ArrayList<String> ordinazioni;
 
-    public Produttore(BlockingQueue<String> codaOrdinazioni) {
-        this.codaOrdinazioni = codaOrdinazioni;
+    public Produttore(ArrayList<String> ordinazioni) {
+        this.ordinazioni = ordinazioni;
     }
 
     @Override
     public void run() {
-        try {
-            System.out.println("Ordinazioni:");
+        // Inserisce le ordinazioni nell'arraylist
+        synchronized (ordinazioni) {
+            System.out.println("Ordinazioni :");
 
-            // Inserisce le ordinazioni nella coda
-            codaOrdinazioni.put("Pasta al pomodoro");
-            System.out.println("Inserita: Pasta al pomodoro");
+            ordinazioni.add("Pasta al pomodoro");
+            System.out.println("Aggiunto: Pasta al pomodoro");
 
-            codaOrdinazioni.put("Pizza margherita");
-            System.out.println("Inserita: Pizza margherita");
+            ordinazioni.add("Pizza margherita");
+            System.out.println("Aggiunto: Pizza margherita");
 
-            codaOrdinazioni.put("Insalata mista");
-            System.out.println("Inserita: Insalata mista");
+            ordinazioni.add("Insalata mista");
+            System.out.println("Aggiunto: Insalata mista");
 
-            codaOrdinazioni.put("Tiramisu");
-            System.out.println("Inserito: Tiramisu");
+            ordinazioni.add("Tiramisu");
+            System.out.println("Aggiunto: Tiramisu");
 
-            codaOrdinazioni.put("Caffè");
-            System.out.println("Inserito: Caffè");
+            ordinazioni.add("Caffè");
+            System.out.println("Aggiunto: Caffè");
 
-            // Inserisce un valore speciale per segnalare la fine delle ordinazioni
-            codaOrdinazioni.put("FINE");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            // Segnala la fine delle ordinazioni inserendo un valore nullo nell'arraylist
+            ordinazioni.add(null);
+            ordinazioni.notifyAll();
         }
     }
 }
