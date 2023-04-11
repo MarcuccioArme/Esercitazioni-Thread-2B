@@ -48,3 +48,8 @@ public class QuotazioniBorsa {
 
     }
 }
+
+/*
+Senza l'utilizzo del wait() e del notify(), i thread consumatori potrebbero leggere i valori delle variabili azienda e valore prima che il thread
+produttore abbia finito di aggiornarle, causando situazioni d'inconsistenza dei dati.
+*/
