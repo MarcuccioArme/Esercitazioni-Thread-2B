@@ -23,9 +23,9 @@ public class QuotazioniBorsa {
 
         }
 
-        String result = azienda;
+        String aziendaSTR = azienda;
         azienda = null;
-        return result;
+        return aziendaSTR;
 
     }
 
@@ -42,9 +42,9 @@ public class QuotazioniBorsa {
 
         }
 
-        double result = valore;
+        double Valore = valore;
         valore = 0;
-        return result;
+        return Valore;
 
     }
 }
