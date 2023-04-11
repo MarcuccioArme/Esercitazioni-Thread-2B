@@ -30,7 +30,7 @@ class Consumatore implements Runnable {
 
                     // Elabora l'ordinazione
                     System.out.println("\nPreparazione in corso: " + ordine);
-                    Thread.sleep(2000); // Simula il tempo di preparazione
+                    Thread.sleep(3000); // Simula il tempo di preparazione
                     System.out.println("Ordinazione pronta: " + ordine);
                 }
 
