@@ -41,4 +41,4 @@ Infine, il metodo aggiungiQuotazione() dell'oggetto quotazioniBorsa viene chiama
 
 In conclusione, il thread Produttore attende per 100 millisecondi utilizzando il metodo Thread.sleep() prima di generare una nuova quotazione,
 in modo da simulare un intervallo di tempo tra una quotazione e l'altra.
- */
+*/

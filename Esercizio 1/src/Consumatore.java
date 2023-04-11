@@ -58,4 +58,4 @@ utilizzando il metodo System.exit(0).
 
 Inoltre, il thread Consumatore attende per 100 millisecondi utilizzando il metodo Thread.sleep() prima di leggere la prossima quotazione, in modo da simulare
 un intervallo di tempo tra una lettura e l'altra.
- */
+*/
