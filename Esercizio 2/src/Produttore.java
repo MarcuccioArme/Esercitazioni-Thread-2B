@@ -10,6 +10,7 @@ class Produttore implements Runnable {
 
     @Override
     public void run() {
+
         // Inserisce le ordinazioni nell'arraylist
         synchronized (ordinazioni) {
             System.out.println("Ordinazioni :");
@@ -33,5 +34,7 @@ class Produttore implements Runnable {
             ordinazioni.add(null);
             ordinazioni.notifyAll();
         }
+
     }
+
 }

@@ -10,6 +10,7 @@ class Consumatore implements Runnable {
 
     @Override
     public void run() {
+
         synchronized (ordinazioni) {
             try {
 
@@ -37,5 +38,7 @@ class Consumatore implements Runnable {
                 Thread.currentThread().interrupt();
             }
         }
+
     }
+
 }

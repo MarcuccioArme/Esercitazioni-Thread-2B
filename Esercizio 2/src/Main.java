@@ -17,5 +17,6 @@ public class Main {
         // Attende il completamento dei thread produttore e consumatore
         produttore.join();
         consumatore.join();
+
     }
 }
